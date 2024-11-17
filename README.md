@@ -1,6 +1,5 @@
 # "Luxury Homes" - Real Estate Marketplace Web App
 
-- **Youtube Link**: https://youtu.be/fkwEpTE4g-A
 
 ## Project Overview
 This project is a **real estate marketplace web application** designed using **Django**, **Python**, **HTML**, **CSS**, **JavaScript**, and **PostgreSQL**. The application serves as an online platform where users can browse, inquire, and interact with real estate listings. Users can also log in using traditional authentication methods, as well as through **Facebook** and **Google** authentication.
