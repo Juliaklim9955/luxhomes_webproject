@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block title %} | Search {% endblock %}
+
+{% block content %}
+<!-- Banner start -->
+<div class="sub-banner overview-bgi">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>Search Results</h1>
+            <ul class="breadcrumbs">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Search</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Banner end -->
+
+<!-- Search box 3 start -->
+<div class="search-box-3 sb-7 bg-active">
+    <div class="container">
+        <div class="search-area-inner">
+            <div class="search-contents">
+                <form action="{% url 'search' %}" method="">                    
+                    <div class="row justify-content-center">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                            <div class="form-group">
+                                <select class="selectpicker search-fields" name="type">
+                                    <option disabled="disabled" selected="selected">Select type</option>
+                                    {% for type in types %}
+                                        <option value="{{type}}">{{type}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                            <div class="form-group">
+                                <select class="selectpicker search-fields" name="city">
+                                    <option disabled="disabled" selected="selected">Select location</option>
+                                    {% for city in cities %}
+                                        <option value="{{city}}">{{city}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                            <div class="form-group">
+                                <select class="selectpicker search-fields" name="rent_sale">
+                                    <option disabled="disabled" selected="selected">Select action</option>
+                                    {% for rent_sale in rents_sales %}
+                                        <option value="{{rent_sale}}">{{rent_sale}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                            <div class="form-group">
+                                <select class="selectpicker search-fields" name="bedrooms">
+                                    <option disabled="disabled" selected="selected">Select #bedrooms</option>
+                                    {% for bedrooms in bedrooms %}
+                                        <option value="{{bedrooms}}">{{bedrooms}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                            <div class="form-group">
+                                <div class="range-slider">
+                                    <div data-min="0" data-max="150000000" data-unit="USD" data-min-name="min_price" data-max-name="max_price" class="range-slider-ui ui-slider" aria-disabled="false"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                            <div class="form-group">
+                                <button class="btn btn-block button-theme btn-md">
+                                    <i class="fa fa-search"></i>Find
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Search box 3 end -->
+
+<!-- Featured car start -->
+<div class="featured-car content-area">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>Here's your <span>next home.</span></h1>
+            <p>Have a look at our latest listings</p>
+        </div>
+        <div class="row">
+            {% for listing in listings %}
+            <div class="col-lg-4 col-md-6">
+                <div class="car-box">
+                    <div class="car-thumbnail">
+                        <a href="{% url 'flat_detail' listing.id %}" class="car-img">
+                            <div class="tag">For {{listing.rent_sale}}!</div>
+                            <img class="d-block w-100" src="{{listing.flat_photo.url}}" alt="car" style="min-height: 260px; max=height: 260px">
+                            <div class="facilities-list clearfix">
+                                <ul>
+                                    <li>
+                                        <span><i class="flaticon-way"></i></span>{{listing.rent_sale}}
+                                    </li>
+                                    <li>
+                                        <span><i class="flaticon-calendar-1"></i></span>{{listing.size}}sq.m
+                                    </li>
+                                    <li>
+                                        <span><i class="flaticon-manual-transmission"></i></span>{{listing.condition}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </a>
+                        <div class="carbox-overlap-wrapper">
+                            <div class="overlap-box">
+                                <div class="overlap-btns-area">
+                                    <div class="car-magnify-gallery">
+                                        <a href="{{listing.flat_photo.url}}" class="overlap-btn">
+                                            <i class="fa fa-expand"></i>
+                                            <img class="hidden" src="{{listing.flat_photo.url}}">
+                                        </a>
+                                        <a href="{{listing.flat_photo1.url}}" class="overlap-btn">
+                                            <i class="fa fa-expand"></i>
+                                            <img class="hidden" src="{{listing.flat_photo1.url}}">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <h1 class="title">
+                            <a href="{% url 'flat_detail' listing.id %}">{{listing.flat_title}}</a>
+                        </h1>
+                        <div class="location">
+                            <a href="{% url 'flat_detail' listing.id %}">
+                                <i class="flaticon-pin"></i>{{listing.city}}, {{listing.state}}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="footer clearfix">
+                        <div class="pull-left ratings days">
+                            <p class="cartype">{{listing.type}}</p>
+                        </div>
+                        <div class="pull-right">
+                            <p class="price">${{listing.price | intcomma}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}  
+        </div>
+    </div>
+</div>
+<!-- Featured car end -->
+
+
+{% endblock %}

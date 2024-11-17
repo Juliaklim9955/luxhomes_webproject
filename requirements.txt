@@ -1,0 +1,12 @@
+Django>=5.0.3
+psycopg2>=2.9.3
+django-environ>=0.9.0
+django-cors-headers>=3.10.0
+django-allauth>=0.45.0  # For social login (Facebook, Google)
+djangorestframework>=3.14.0  # If you plan to use DRF for API-based communication between frontend and backend
+django-ckeditor>=6.0.0  # For RichText Editor functionality
+django-filter>=23.1  # For advanced search and filtering in queries
+django-widget-tweaks>=1.4.10  # To handle Multi-Select fields in the admin and forms
+requests>=2.28.1  # For handling HTTP requests, especially for API calls (e.g., social login)
+gunicorn>=20.1.0  # WSGI HTTP Server for production (recommended for deploying Django)
+python-dotenv>=0.21.0  # To manage environment variables

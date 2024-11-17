@@ -1,0 +1,309 @@
+{% extends "base.html" %}
+
+{% block title %} | Home {% endblock %}
+
+{% block content %}
+
+{% load humanize %}
+
+{% load static %}
+
+<!-- Banner start -->
+<div class="banner" id="banner">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner banner-slider-inner text-center">
+            <div class="carousel-item banner-max-height active item-bg">
+                <img class="d-block w-100 h-100" src="{% static 'img/house-1.jpg' %}" alt="banner">
+                <div class="carousel-content container banner-info-2 bi-2 text-left">
+                    <h3>Wow Factor Standard</h3>
+                    <h5>Allow us to guide you through the innovative stress<br>
+                        free approach in finding your dream house.</h5>
+                    <a href="{% url 'services' %}" class="btn btn-lg btn-theme">Read more</a>
+                </div>
+            </div>
+            <div class="carousel-item banner-max-height item-bg">
+                <img class="d-block w-100 h-100" src="{% static 'img/house-2.jpg' %}" alt="banner">
+                <div class="carousel-content container banner-info-2 bi-2 text-left">
+                    <h3>Explore Your Dream house.</h3>
+                    <h5>Allow us to guide you through the innovative stress<br>
+                        free approach in finding your dream House.</h5>
+                    <a href="{% url 'services' %}" class="btn btn-lg btn-theme">Read more</a>
+                </div>
+            </div>
+            <div class="carousel-item banner-max-height item-bg">
+                <img class="d-block w-100 h-100" src="{% static 'img/house-3.jpg' %}" alt="banner">
+                <div class="carousel-content container banner-info-2 bi-2 text-left">
+                    <h3>Dream Big.</h3>
+                    <h5>Allow us to guide you through the innovative stress<br>
+                        free approach in finding your dream House.</h5>
+                    <a href="{% url 'services' %}" class="btn btn-lg btn-theme">Read more</a>
+                </div>
+            </div>
+        </div>
+        <!-- Search box 3 start -->
+        <div class="search-box-4 sb-8">
+            <form action="{% url 'search' %}" method="">
+                <div class="form-group">
+                    <input type="text" name="keyword" placeholder="Search by name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <select class="form-control search-fields" name="type">
+                        <option selected="true" disabled="disabled">Type</option>
+                        {% for type in types %}
+                            <option value="{{type}}">{{type}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control search-fields" name="city">
+                        <option selected="true" disabled="disabled">Location</option>
+                        {% for city in cities %}
+                            <option value="{{city}}">{{city}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control search-fields" name="rent_sale">
+                        <option selected="true" disabled="disabled">Rent/Sale</option>
+                            {% for rent_sale in rents_sales %}
+                                <option value="{{rent_sale}}">{{rent_sale}}</option>
+                            {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control search-fields" name="bedrooms">
+                        <option selected="true" disabled="disabled">Bedrooms</option>
+                        {% for bedrooms in bedrooms %}
+                            <option value="{{bedrooms}}">{{bedrooms}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="range-slider clearfix">
+                                <label>Price</label>
+                                <div data-min="0" data-max="150000000"  data-min-name="min_price" data-max-name="max_price" data-unit="USD" class="range-slider-ui ui-slider" aria-disabled="false"></div>
+                                <div class="clearfix"></div>
+                            </div>
+                <div class="form-group">
+                    <button class="btn btn-block button-theme btn-md">
+                        <i class="fa fa-search"></i> Search
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!-- Search box 3 end -->
+        <a class="carousel-control-prev none-580" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="slider-mover-left" aria-hidden="true">
+                <i class="fa fa-angle-left"></i>
+            </span>
+        </a>
+        <a class="carousel-control-next none-580" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="slider-mover-right" aria-hidden="true">
+                <i class="fa fa-angle-right"></i>
+            </span>
+        </a>
+    </div>
+</div>
+<!-- Banner end -->
+
+<!-- Search box 2 end -->
+
+<!-- Featured flat start -->
+<div class="featured-car content-area-5">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>Featured <span>Properties</span></h1>
+            <p>Check out our latest, hotest listings!</p>
+        </div>
+        <!-- Slick slider area start -->
+        <div class="slick-slider-area clearfix">
+            <div class="row slick-carousel" data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                {% for flat in featured %}
+                    <div class="slick-slide-item">
+                        <div class="car-box-3">
+                            <div class="car-thumbnail">
+                                <a href="{% url 'flat_detail' flat.id %}" class="car-img">
+                                    <div class="tag-2">Featured</div>
+                                    <div class="price-box">
+                                        <span>${{flat.price | intcomma}}</span>
+                                    </div>
+                                    <img class="d-block w-100" src="{{flat.flat_photo.url}}" alt="car" style="min-height: 260px; max=height: 260px">
+                                </a>
+                                <div class="carbox-overlap-wrapper">
+                                    <div class="overlap-box">
+                                        <div class="overlap-btns-area">
+                                            <div class="car-magnify-gallery">
+                                                <a href="{{flat.flat_photo.url}}" class="overlap-btn">
+                                                    <i class="fa fa-expand"></i>
+                                                    <img class="hidden" src="{{flat.flat_photo1.url}}">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="detail">
+                                <h1 class="title">
+                                    <a href="{% url 'flat_detail' flat.id %}">{{flat.flat_title}}</a>
+                                </h1>
+                                <div class="location">
+                                    <a href="{% url 'flat_detail' flat.id %}">
+                                        <i class="flaticon-pin"></i>{{flat.city}},{{flat.state}}
+                                    </a>
+                                </div>
+                                <ul class="facilities-list clearfix">
+                                    <li>{{flat.size}} sq. meters</li>
+                                    <li>For {{flat.rent_sale}}</li>
+                                    <li>{{flat.type}}</li>
+                                    <li>{{flat.condition}}</li>
+                                    <li>{{flat.bedrooms}} bedrooms</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="slick-btn">
+                <div class="slick-prev slick-arrow-buton sab-4">
+                    <i class="fa fa-angle-left"></i>
+                </div>
+                <div class="slick-next slick-arrow-buton sab-3">
+                    <i class="fa fa-angle-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Featured flat end -->
+
+<!-- Rent flat start -->
+<div class="featured-car content-area">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>Latest <span>Listings</span></h1>
+            <p>Check out our latest listings! Amazing properties for sale/rent!</p>
+        </div>
+            <div class="row">
+                {% for listing in all_listings %}
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="car-box">
+                            <div class="car-thumbnail">
+                                <a href="{% url 'flat_detail' listing.id %}" class="car-img">
+                                    <div class="tag">For {{listing.rent_sale}}!</div>
+                                    <img class="d-block w-100" src="{{listing.flat_photo.url}}" alt="car" style="min-height: 260px; max=height: 260px">
+                                    <div class="facilities-list clearfix">
+                                        <ul>
+                                            <li>
+                                                <span><i class="flaticon-way"></i></span>{{listing.rent_sale}}
+                                            </li>
+                                            <li>
+                                                <span><i class="flaticon-calendar-1"></i></span>{{listing.size}}sq.m
+                                            </li>
+                                            <li>
+                                                <span><i class="flaticon-manual-transmission"></i></span>{{listing.condition}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </a>
+                                <div class="carbox-overlap-wrapper">
+                                    <div class="overlap-box">
+                                        <div class="overlap-btns-area">
+                                            <div class="car-magnify-gallery">
+                                                <a href="{{listing.flat_photo.url}}" class="overlap-btn">
+                                                    <i class="fa fa-expand"></i>
+                                                    <img class="hidden" src="{{listing.flat_photo.url}}">
+                                                </a>
+                                                <a href="{{listing.flat_photo1.url}}" class="overlap-btn">
+                                                    <i class="fa fa-expand"></i>
+                                                    <img class="hidden" src="{{listing.flat_photo1.url}}">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="detail">
+                                <h1 class="title">
+                                    <a href="{% url 'flat_detail' listing.id %}">{{listing.flat_title}}</a>
+                                </h1>
+                                <div class="location">
+                                    <a href="{% url 'flat_detail' listing.id %}">
+                                        <i class="flaticon-pin"></i>{{listing.city}}, {{listing.state}}
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="footer clearfix">
+                                <div class="pull-left ratings days">
+                                    <p class="cartype">{{listing.type}}</p>
+                                </div>
+                                <div class="pull-right">
+                                    <p class="price">${{listing.price | intcomma}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+    </div>
+</div>
+<!-- Rent flat end -->
+
+
+<!-- Our team start -->
+<div class="our-team content-area bg-grea-3">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>Executive <span>Team</span></h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+        </div>
+        <!-- Slick slider area start -->
+        <div class="slick-slider-area clearfix">
+            <div class="row slick-carousel" data-slick='{"slidesToShow": 4, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+              {% for member in teams %}
+                <div class="slick-slide-item">
+                    <div class="team-1">
+                        <div class="photo">
+                            <a href="#">
+                                <img src="{{member.photo.url}}" alt="team-1" class="img-fluid">
+                            </a>
+                            <div class="social-list clearfix">
+                                <a href="{{member.fb_link}}" class="facebook-bg" target="_blank"><i class="fa fa-facebook"></i></a>
+                                <a href="{{member.x}}" class="twitter-bg" target="_blank"><i class="fa fa-twitter"></i></a>
+                                <a href="{{member.google}}" class="google-bg" target="_blank"><i class="fa fa-google"></i></a>
+                            </div>
+                        </div>
+                        <div class="details">
+                            <h4><a href="team-detail.html">{{member.firstname}} {{member.lastname}}</a></h4>
+                            <h5>{{member.role}}</h5>
+                        </div>
+                    </div>
+                </div>
+              {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Our team end -->
+
+<!-- Intro section start -->
+<div class="intro-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-8 col-sm-12">
+                <div class="intro-text">
+                    <h3>Do You Have Questions ?</h3>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-12">
+                <a href="{% url 'contact' %}" class="btn btn-md">Get in Touch</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Intro section end -->
+
+{% endblock %}
